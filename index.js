@@ -12,8 +12,12 @@ const PORT = process.env.PORT;
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.CONNECTION_URL);
-
+const DB_URL = process.env.CONNECTION_URL
+mongoose.connect(DB_URL).then(()=>{
+    console.log("MongoDB database connected")
+}).catch((error)=>{
+    console.log(error)
+})
 // Routes
 const postsRouter = require('./routes/posts');
 app.use('/api/posts', postsRouter);
